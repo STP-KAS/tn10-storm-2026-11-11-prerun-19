@@ -4,6 +4,8 @@
 
 Fixed 2026-11-13T04:46:47Z, before the first family submit. sha256 of the lowercase hex id. The id is not in this file. This is hashes/SIXTEEN.md for pre-run 19. Floor is families 1–4. R150 is families 5–8. R300 is families 9–12. R450 is families 13–16.
 
+On origin/main at 2026-11-13T04:47:18Z, commit ff42b57. That commit put these rows on GitHub. Fixed is the local write. On origin is that commit's time.
+
 | Family | Cohort | sha256 |
 |---:|---|---|
 | 1 | floor | `84a5e001f45d9278a5953b46d6336b99edc266dc034d68bb51f64637b547c6aa` |
