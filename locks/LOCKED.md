@@ -585,3 +585,11 @@ These lines are baked into this repo's own pastes. They come from pre-run 18's l
 ## Locked during pre-run 19
 
 When a fix works, append it here, one block per fix, in the form shown above: UTC time, what failed or worked, what was changed, why that change stays.
+
+```
+- 2026-11-13T05:44:42Z.
+- What worked: the greedy-alone control (one lane, target 110 percent of its reference, never down, cap 2,000, lane 2 at N = 0), key 0 topped up on use with a budget check before genesis (50,825 usable, projected end 26,505, actual 28,381). Rehearsed offline first, calibrated at 100/450 (hops) and 100/2,000 (lane) on the node, bot free check once before arming. Every step, RETURN, TIMELINE, MEMPOOL and METHOD on origin, every whole minute kept pace. 6,092 lane transactions accepted, 0 rejected, 0 lost, 4,481.21 tKAS fees, 228.45 parked (not swept). Every OK family hop included (floor 4,411, r150 4,953, r300 5,632, r450 5,797). Greedy alone: 150 -> 719 one step a minute with flat landings (458-559, reference 513), ended by the moved cap at 05:25:46Z; tiers at 460 9 / 20 / 63 / 83 percent of BASE, back within a minute. Mini 92 of 92. Bot NO SEND no-free-node on time.
+- What failed: nothing in the run. The lane's moved cap (4,700) ended the greedy part after 7 minutes 46 s, as sized; the controller kept logging paper rates (899-1,756) after the lane stopped.
+- What was changed: nothing during the run. The duel log was copied unchanged to logs/duel.log after the run.
+- Why that change stays, for the next repo: keep the duel controller and its log, the greedy mode and the cap guard, pricing on the node's mass, the calibrations, the budget check before genesis, the pre-arm free check, Mini's count and the waiter's fetch handling. Log the lane's stop in duel.log too (the controller should stop moving the rate once the lane is capped). The pile is down to 254 dealable tKAS, so any further lane needs a pile refill first (the sink is not swept).
+```

@@ -72,11 +72,21 @@ Rehearsal `p19-a` ran on the desk against the fake node (no network for the send
 
 ## Status after the live run
 
-AFTER_PLACEHOLDER
+Read on 2026-11-13 between 05:39Z and 05:50Z. Not a gate.
+
+- **The run finished through RETURN.** The desk runner (started 05:08:52Z) ran BASE, HOLD-1 (the lane's reference), HOLD-2 and HOLD-3 (greedy alone, 12 minutes in one piece), the drain, HOLD-4 and RETURN; every whole minute kept pace and was clean; no repair, no restart. `RUN_STOP return-closed` 05:39:24Z; TIMELINE, MEMPOOL and METHOD on origin 05:44:35–40Z; `RUN end` 05:44:42Z. No runner process was left on the desk. The private TN10 kaspad (2.1.0) was not stopped. No devnet, `KaspaPublicNode` or miner was started; `serve.mjs` and its keeper were not touched.
+- **The greedy lane climbed on its own.** 150 → 188 → 235 → 294 → 368 → 460 → 575 → 719, one step every decided minute, with its landings flat (458–559 a minute, median 518, against a reference of 513; target 564): a ceiling of about one heavy transaction a block, not competition. It hit its moved cap (4,700 tKAS) at 05:25:46Z, 24 s after stepping to 719, and stopped for the rest of the run; the controller's later values (899–1,756) were never paid. Fixed tiers (percent of BASE, floor / r150 / r300 / r450): reference 71 / 85 / 93 / 98, at 460 9 / 20 / 63 / 83, back to 93–106 within a minute of the lane stopping; RETURN median 109 / 105 / 100 / 101. The duel log is [logs/duel.log](logs/duel.log).
+- Our heavy lane: `LANE_END` 05:39:24Z, 6,092 accepted, 0 rejected, 0 lost, 4,481.21 tKAS fees, 228.45 tKAS parked on our sink key (not swept), 343 pile coins taken, 0 pending, stop state `cap`.
+- Inclusion (counter totals): every OK hop (floor 4,411, r150 4,953, r300 5,632, r450 5,797) and every lane transaction (6,092) landed.
+- The outside heavy fee-100 stream of pre-runs 14–16 was absent (1 entry in two minutes, 0 otherwise). The probe's mempool read worked every sample (the mempool peaked at 754 entries).
+- Mini: the runner (MINI-ARMED 05:08:26Z) published every step, each read in full, and matched the desk in 92 of 92 cohort cells, 0 removals after a minute had closed. Its TN10 kaspad was not wiped or restarted.
+- Bot: `NO SEND no-free-node` for the pinned minute 05:34Z (on origin 05:35:04Z, first try); nothing sent.
+- Keys after the run (read-only status): key 0 4,159 coins over 3 tKAS, 28,381 usable (abort line 18,000), 1,029 small coins; keys 1–15 have no genesis coin; payment pile 23 dealable coins (254 tKAS).
+- Results: [logs/LESSONS.md](logs/LESSONS.md), [logs/duel.log](logs/duel.log), and the pre-run 19 block in [locks/LOCKED.md](locks/LOCKED.md).
 
 ### Public statement
 
-We run our own heavy lane on TN10 in this pre-run, with the operator's OK, 30 chains: 4 minutes at 150, then 12 minutes at rates our greedy rule sets between 150 and 2,000 sompi/gram. While it runs, other TN10 users' transactions paying up to about the lane's rate wait longer on the nodes that see them, and more of them wait if the lane climbs. The figures for this run are added here after it. This is our own testing; tKAS has no value.
+We run our own heavy lane on TN10 in this pre-run, with the operator's OK, 30 chains: 4 minutes at 150, then 12 minutes at rates our greedy rule sets between 150 and 2,000 sompi/gram. While it runs, other TN10 users' transactions paying up to about the lane's rate wait longer on the nodes that see them, and more of them wait if the lane climbs. In this run the lane ran 12 minutes: 4 at 150, then 7 minutes 46 s of greed (it climbed from 150 to 719) until its own spend cap stopped it at 05:25:46Z. On our desk node other traffic landed a median of 2,995 a minute with the lane at 150 and 2,968 in the first greedy part (single minutes down to 2,691), against 3,137 with the lane at 0 (BASE): about 5 percent lower, 14 percent in the worst minute; over the 12 minutes about 4 percent fewer, the rest waiting. The desk mempool grew to 754 entries and the node's priority fee estimate rose to 931 instead of 139. Our own hops at 100, a stand-in for a low-fee user, ran at 71 percent of their BASE pace with the lane at 150 and at 9 percent with the lane at 460. No outside heavy stream was present. This is our own testing; tKAS has no value.
 
 ## When something breaks
 
