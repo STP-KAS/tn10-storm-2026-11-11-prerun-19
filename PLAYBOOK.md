@@ -62,7 +62,13 @@ Not a gate. Read on 2026-11-13 between 04:40Z and 04:45Z. This is our own TN10 t
 
 ## Offline rehearsal, recorded before `PRE-RUN-OPEN`
 
-REHEARSAL_PLACEHOLDER
+Rehearsal `p19-a` ran on the desk against the fake node (no network for the sends), 2026-11-13 04:48:00Z to 05:06:59Z, with 2-minute lane steps (`STORM_LANE_MIN=2`, `STORM_RET_MIN=2`) and the probe's full read capped at 5,000 entries, using this pre-run's runner, lane, counter, probe, kit24 and family-fee files (the same files, by hash, as the live run).
+
+- Preflight passed; `BUDGET_CHECK` logged (key 0 50,825 usable, 20 planned family minutes in the rehearsal, projected end 35,625, over the line plus margin); genesis 16 of 16 live; `FEE_SPLIT` verified floor 100, r150 150, r300 300, r450 450; `LANE_PLAN` BASE N0, HOLD-1 the reference (one lane), HOLD-2 greedy-alone-1, HOLD-3 greedy-alone-2, then the drain.
+- One lane submitted with no rejections and no losses (4,140 OK); lane 2 stayed at N = 0 (0 submitted, the counter's lane-2 column 0).
+- The SOLO controller did what the plan says: the reference from HOLD-1 for lane 1 only (lane 2's 0 did not hold it); in the greedy part the lane stepped up every minute (150 → 188 → 235 → 294; the fake node lands about the same at every rate, 96–103 percent of the reference, under 110 percent), **the second part continued from 188 without a reset**, and lane 2's rate never moved. No `ERROR` line; no cap in 2-minute steps.
+- Every step file, TIMELINE, MEMPOOL and METHOD published to the rehearsal's local origin; `RUNNER_EXIT 0`.
+- The cap guard and the budget hold were not reached in the rehearsal; the cap guard ran in the offline toy (`tools/sim/world19.mjs` with a 22-minute greedy part: `CAP_REACHED side=a` after 4 minutes at 2,000, back to 150, climbing again).
 
 ## Status after the live run
 
